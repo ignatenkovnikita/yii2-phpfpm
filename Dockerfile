@@ -27,6 +27,7 @@ RUN printf "\n" | pecl install channel://pecl.php.net/amqp-1.7.0alpha2 && echo e
 
 RUN pecl install -o -f xdebug \
     && rm -rf /tmp/pear
+RUN docker-php-ext-enable xdebug
 
 COPY ./php.ini /usr/local/etc/php/
 COPY ./www.conf /usr/local/etc/php/
@@ -49,6 +50,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 # Install all project dependencies
 RUN  composer global require "fxp/composer-asset-plugin:^1.4.2"
 RUN  composer global require hirak/prestissimo
+
+RUN php -v
 
 RUN usermod -u 1000 www-data
 
