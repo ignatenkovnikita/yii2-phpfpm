@@ -39,10 +39,16 @@ RUN apt-get purge -y g++ \
 RUN eval $(ssh-agent -s)
 RUN mkdir -p ~/.ssh
 
-RUN curl -sS https://getcomposer.org/installer | php
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        --filename=composer \
+        --install-dir=/usr/local/bin && \
+        echo "alias composer='composer'" >> /root/.bashrc && \
+        composer
 
-  # Install all project dependencies
-RUN php composer.phar global require "fxp/composer-asset-plugin:^1.4.2"
+# Install all project dependencies
+RUN  composer global require "fxp/composer-asset-plugin:^1.4.2"
+RUN  composer global require require hirak/prestissimo
 
 RUN usermod -u 1000 www-data
 
