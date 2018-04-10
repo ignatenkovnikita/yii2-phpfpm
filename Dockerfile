@@ -48,7 +48,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 # Install all project dependencies
 RUN  composer global require "fxp/composer-asset-plugin:^1.4.2"
-RUN  composer global require require hirak/prestissimo
+RUN  composer global require hirak/prestissimo
 
 RUN usermod -u 1000 www-data
 
